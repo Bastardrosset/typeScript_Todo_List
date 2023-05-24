@@ -1,0 +1,14 @@
+/* // General // */
+.myStyleLink{
+    font-style: italic;
+    color: blue;
+    font-size: 14px;
+}
+
+/* // Register // */
+
+/* // Login // */
+
+/* // Logout CSS // */
+.myStyleOff{list-style-type: none;}
+.myHover{cursor: pointer;}
