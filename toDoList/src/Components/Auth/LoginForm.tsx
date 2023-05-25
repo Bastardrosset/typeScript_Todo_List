@@ -2,23 +2,38 @@ import './authStyle.css';
 
 import IconTask from '../IconTasks/IconTasks';
 import { NavLink } from 'react-router-dom'
-import { FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
+import { loginUser } from '../../Services/ApiAction/auth';
+import { useLocalStorage } from '../../hook/useLocalStorage';
+
 
 export default function LoginForm() {
 
+  const TOKEN = 'token';
+  const [storeToken, setStoreToken] = useLocalStorage(TOKEN, '');
+
+  
   const [user, setUser] = useState({
     email: "",
     password: "",
   })
-
-  function handleChange(e:any){
-    const {name, value}:any = e.target;
+  
+  function handleChange(e:ChangeEvent<HTMLInputElement>){
+    const {name, value} = e.target;
     setUser({ ...user, [name]: value})
   }
 
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+    try {
+      const response = await loginUser(user);
+      if(response) {
+        setStoreToken(response.data.token);
+        window.location.href = "/accueil";
+      }
+    } catch (error) {
+      console.log('erreur signin' + error)
+    }
   }
 
   return (
@@ -33,7 +48,8 @@ export default function LoginForm() {
               <input 
                 className="w-75" 
                 type="email" 
-                name="email" 
+                name='email'
+                value={user.email} 
                 id="email" 
                 onChange={(e)=>handleChange(e)} 
                 required/>

@@ -14,7 +14,6 @@ const SignupForm = () => {
     email: "",
     password: "",
   })
-console.log(user)
 
   function handleChange(e:ChangeEvent<HTMLInputElement>){
     const {name, value} = e.target;
@@ -25,15 +24,15 @@ console.log(user)
     e.preventDefault();
   
     try {
-      const response = await registerUser();
-      if(response){
+      const response = await registerUser(user);
+      if(response) {
         window.location.href = "/";
       }
     } catch (error) {
       console.log(error);
     }
   }
-
+  
   return (
     <div className='container d-flex justify-content-center align-items-center mt-5'>
         <div className='col-6 d-flex justify-content-evenly'>
