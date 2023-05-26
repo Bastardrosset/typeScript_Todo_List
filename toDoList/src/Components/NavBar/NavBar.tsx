@@ -1,6 +1,6 @@
-import React from 'react';
-import IconTask from '../IconTasks/IconTasks';
+import './navBarStyle.css';
 
+import IconTask from '../IconTasks/IconTasks';
 import { NavLink } from 'react-router-dom';
 import Logout from '../Auth/Logout'
 

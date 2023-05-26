@@ -1,11 +1,14 @@
 import './authStyle.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const Logout = () => {
-  
+  const navigate = useNavigate();
+
     const logout = async () => {
         localStorage.removeItem('token')
         localStorage.removeItem('user')
-        // window.location = "/";// redirige vers home
+        navigate('/');// redirige vers home
     }
 
   return (
