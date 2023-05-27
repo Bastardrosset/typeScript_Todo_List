@@ -39,6 +39,6 @@ app.use(bodyParser.json());
 
 app.use('/api/auth', authRoutes)
 app.use('/api/users', usersRoutes)
-app.use('/api/posts', taskRoutes);
+app.use('/api/tasks', taskRoutes);
 
 module.exports = app;

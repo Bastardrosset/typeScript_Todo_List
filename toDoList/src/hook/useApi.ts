@@ -4,6 +4,7 @@ export function useApi() {
     const headers = {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
     };
     const api: AxiosInstance = axios.create ({
         baseURL: import.meta.env.VITE_API_BASE_URL,

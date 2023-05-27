@@ -24,3 +24,14 @@ export async function loginUser(body:any) {
         console.log('error auth'+error)
     }
 }
+
+// Call API BACK-END logout function
+export async function logout() {
+    try{
+        const logout = api.post('api/auth/logout' )
+        return logout;
+        
+    } catch(error) {
+        console.log('error auth'+error)
+    }
+}

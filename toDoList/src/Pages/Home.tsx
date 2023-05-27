@@ -1,11 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import IconTask from '../Components/IconTasks/IconTasks';
+import { getAllUsers } from '../Services/ApiAction/user';
 
+import IconTask from '../Components/IconTasks/IconTasks';
 import Button from '../Components/Button/Button';
-import Logout from '../Components/Auth/Logout'
+import Logout from '../Components/Auth/Logout';
+
 
 export default function Home() {
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    readUsers();
+  }, []);
+
+  const readUsers = async () => {
+    try{
+      const response = await getAllUsers()
+      if(response){
+        setUsers(response.data)
+      }
+    } catch(error) {
+    console.log('erreur durant le chargement des users' + error)
+
+    }
+  }
+
   return (
     <div>
       <>
@@ -35,13 +56,13 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-          {/* {users.map((user) => (
+          {users.map((user: any) => (
               <tr key={user._id}>
-                <th scope="row">{user.pseudo}</th>
+                <th scope="row">{user.name}</th>
                 <td>{user.email}</td>
                 <td>{user.isAdmin}</td>
               </tr>
-            ))} */}
+            ))}
           </tbody>
         </table>
       </div>

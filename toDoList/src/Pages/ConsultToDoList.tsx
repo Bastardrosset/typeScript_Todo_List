@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import Navbar from '../Components/NavBar/NavBar';
-import Table from 'react-bootstrap/Table';
-import IconEdite from '../Components/IconEdites/IconEdite';
+import {useEffect, useState} from 'react';
+import { readAllTask } from '../Services/ApiAction/task';
 import { NavLink } from 'react-router-dom';
+import Navbar from '../Components/Menu/Menu';
+import IconEdite from '../Components/IconEdit/IconEdit';
+import Table from 'react-bootstrap/Table';
+
 
 const ConsultToDoListe =() => {
 
@@ -13,27 +15,20 @@ const ConsultToDoListe =() => {
     }, []);
 
     const fetchTasks = async () => {
-      // try {
-      //   const response = await  fetch("http://localhost:5000/api/posts/read", {
-      //     method: "GET",
-      //     crossDomain: true,
-      //     headers: {
-      //       "Content-type": "application/json",
-      //       Accept: "application/json",
-      //       "Access-Control-Allow-Origin": "*",
-      //       Authorization: 'Bearer token'
-      //     }, 
-      //   })
-      //   const data = await response.json();
-      //   setTasks(data);
-      // } catch (error) {
-      //   console.log('Une erreur s\'est produite lors de la récupération des taches.', error);
-      // }
+      try {
+        const response = await readAllTask()
+        if(response){
+          // console.log(response)
+          setTasks(response.data)
+        }
+      } catch (error) {
+        console.log('Une erreur s\'est produite lors de la récupération des taches.', error);
+      }
     };
     return (
       <>
       <Navbar />
-        <div className='res'>
+        <div className='m-5 p-5'>
          <Table striped bordered hover>
           <thead>
             <tr>
@@ -46,9 +41,9 @@ const ConsultToDoListe =() => {
             </tr>
           </thead>
           <tbody>
-            {/* {tasks.map((task) => (
+            {tasks.map((task: any) => (
               <tr key={task._id}>
-                <td></td>
+                <td>{task.updatedAt}</td>
                 <td>{task.pseudo}</td>
                 <td>{task.email}</td>
                 <td>{task.name}</td>
@@ -59,7 +54,7 @@ const ConsultToDoListe =() => {
                   ><IconEdite/></NavLink></td> 
               </tr>
 
-            ))} */}
+            ))}
           </tbody>
         </Table>
         </div>

@@ -1,8 +1,7 @@
-import React, { ChangeEvent, FormEvent } from 'react';
-import Navbar from '../Components/NavBar/NavBar';
+import { ChangeEvent, FormEvent } from 'react';
+import Navbar from '../Components/Menu/Menu';
 import { useState } from 'react';
-
-
+import { createTask } from '../Services/ApiAction/task';
 
 export default function CreateToDoList() {
 
@@ -18,7 +17,7 @@ export default function CreateToDoList() {
     deadLine: "",
     update: ""
   });
-
+console.log(task)
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>){
     const {name, value} = e.target;
     setTask({ ...task, [name]: value})
@@ -26,63 +25,85 @@ export default function CreateToDoList() {
   
 const formSubmitTask = async (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault();
+  try{
+    const response = await createTask(task);
+    if(response) {
+      setTask(task)
+      window.location.href = "/list";
+    }
+
+  } catch(error){
+    console.log('erreur create task' + error)
+  }
 }
   return (
     <>
     <Navbar/>
     <div className="container lg d-flex flex-column justify-content-center align-items-center mt-5">
-         <form className="form row md-3" onSubmit={formSubmitTask}>
+         <form className="form row md-3" onSubmit={(e)=>formSubmitTask(e)}>
             <div className="row mt-4 ">
                 <div className="col-md-3 mt-2">
                     <label className="form-label me-2" htmlFor="update">Mis à jour le:</label>
                     <input 
                       type="date" 
                       id="update" 
-                      name="trip-start" 
+                      name="update" 
                       min="2023/05/20" 
                       max="2023/03/30" 
-                      onChange={handleChange} />
+                      onChange={(e)=>handleChange(e)} />
                 </div>
             </div>
             <div className='container'>
                 <div className="row mt-4 d-flex justify-content-center">
                     <div className="col-md-4">
-                        <label htmlFor="pseudo" className="form-label">Pseudo</label>
+                        <label 
+                          htmlFor="pseudo" 
+                          className="form-label">Pseudo</label>
                         <input 
                           type="text" 
                           name='pseudo'
-                          value={task.pseudo}
                           className="form-control" 
                           id="pseudo" 
                           required 
-                          onChange={handleChange} />
+                          onChange={(e)=>handleChange(e)} />
                     </div>
                     <div className="col-md-4">
-                        <label htmlFor="email" className="form-label">Email</label>
+                        <label 
+                          htmlFor="email" 
+                          className="form-label">Email</label>
                         <input 
                           type="email" 
+                          name='email'
                           className="form-control" 
                           id="email" 
                           required 
-                          onChange={handleChange} />
+                          onChange={(e)=>handleChange(e)} />
                     </div>
                 </div>
                 <div className="row mt-4 d-flex justify-content-evenly">
                     <div className="col-md-4 ">
-                        <label htmlFor="nomTache" className="form-label">Tache</label>
+                        <label 
+                          htmlFor="nomTache" 
+                          className="form-label">Tache</label>
                         <input 
                           type="text" 
+                        value={task.name}
+
+                          name='name'
                           className="form-control" 
                           id="nomTache" 
-                          onChange={handleChange} 
+                          onChange={(e)=>handleChange(e)} 
                           required />
                     </div>
                     <div className="col-md-2">
-                        <label htmlFor="prioriteTache" className="form-label">Prioritée</label>
+                        <label 
+                          htmlFor="prioriteTache" 
+                          className="form-label">Prioritée</label>
                             <select 
                             className="form-select" 
+                            name='priority'
                             id="prioriteTache" 
-                            onChange={handleChange} 
+                            onChange={(e)=>handleChange(e)} 
                             required>
                                 <option disabled value=""></option>
                                 <option></option>
@@ -94,24 +115,30 @@ const formSubmitTask = async (e: FormEvent<HTMLFormElement>) => {
                 </div>
                 <div className="row mt-4 d-flex justify-content-center">
                     <div className="col-md-8">
-                        <label htmlFor="descriptionTache" className="form-label">Description</label>
+                        <label 
+                          htmlFor="descriptionTache" 
+                          className="form-label">Description</label>
                         <textarea 
-                          className="form-control" 
+                          className="form-control"
+                          name='description' 
                           id="descriptionTache"  
-                          onChange={handleChange} 
+                          onChange={(e)=>handleChange(e)} 
                           required>
                         </textarea>
                     </div>
                 </div>
                 <div className="row mt-4 d-flex justify-content-evenly">
                     <div className="col-md-3">
-                        <label htmlFor="statutTache" className="form-label">Statut</label>
+                        <label 
+                          htmlFor="statutTache" 
+                          className="form-label">Statut</label>
                             <select 
-                              className="form-select" 
+                              className="form-select"
+                              name='status' 
                               id="statutTache" 
-                              onChange={handleChange} 
+                              onChange={(e)=>handleChange(e)} 
                               required>
-                                  <option disabled value={1}></option>
+                                  <option></option>
                                   <option value={1}>En attente</option>
                                   <option value={2}>En cours</option>
                                   <option value={3}>Fini</option>
@@ -122,20 +149,23 @@ const formSubmitTask = async (e: FormEvent<HTMLFormElement>) => {
                         <input 
                           type="date" 
                           id="start" 
-                          name="trip-start" 
+                          name="startDate" 
                           min="2023/05/20" 
                           max="2023/03/24" 
-                          onChange={handleChange} 
+                          onChange={(e)=>handleChange(e)} 
                           required />
                     </div>
                     
                     <div className="col-md-3 mt-2">
-                        <label htmlFor="categorieTache" className="form-label">Catégorie</label>
+                        <label 
+                          htmlFor="categorieTache" 
+                          className="form-label">Catégorie</label>
                         <input 
                           type="text" 
+                          name='category'
                           className="form-control" 
                           id="categorieTache" 
-                          onChange={handleChange} 
+                          onChange={(e)=>handleChange(e)} 
                           required />
                     </div>
                 </div>
@@ -144,12 +174,12 @@ const formSubmitTask = async (e: FormEvent<HTMLFormElement>) => {
                         <label htmlFor="effectuerAvTache" className="form-label">A éffectuer avant le:</label>
                         <input 
                           type="date" 
-                          name="trip-start" 
+                          name="deadLine" 
                           min="2023/05/20" 
                           max="2023/03/24" 
                           className="form-control" 
                           id="effectuerAvTache" 
-                          onChange={handleChange} 
+                          onChange={(e)=>handleChange(e)} 
                           required />
                     </div>
                 </div>
