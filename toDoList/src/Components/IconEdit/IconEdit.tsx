@@ -1,5 +1,7 @@
 import './iconEdit.css';
+
 import IconEditing from '../../assets/editer.svg';
+
 
 export default function IconEdit(props:any) {
 

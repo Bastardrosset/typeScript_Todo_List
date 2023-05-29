@@ -3,6 +3,7 @@ import Navbar from '../Components/Menu/Menu';
 import { useState } from 'react';
 import { createTask } from '../Services/ApiAction/task';
 
+
 export default function CreateToDoList() {
 
   const [task, setTask] = useState({
@@ -14,10 +15,11 @@ export default function CreateToDoList() {
     priority: "",
     status: "",
     startDate: "",
-    deadLine: "",
+    deadline: "",
     update: ""
   });
-console.log(task)
+// console.log(task)
+
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>){
     const {name, value} = e.target;
     setTask({ ...task, [name]: value})
@@ -36,6 +38,7 @@ const formSubmitTask = async (e: FormEvent<HTMLFormElement>) => {
     console.log('erreur create task' + error)
   }
 }
+
   return (
     <>
     <Navbar/>
@@ -132,16 +135,16 @@ const formSubmitTask = async (e: FormEvent<HTMLFormElement>) => {
                         <label 
                           htmlFor="statutTache" 
                           className="form-label">Statut</label>
-                            <select 
-                              className="form-select"
-                              name='status' 
-                              id="statutTache" 
-                              onChange={(e)=>handleChange(e)} 
-                              required>
-                                  <option></option>
-                                  <option value={1}>En attente</option>
-                                  <option value={2}>En cours</option>
-                                  <option value={3}>Fini</option>
+                        <select 
+                          className="form-select"
+                          name='status' 
+                          id="statutTache" 
+                          onChange={(e)=>handleChange(e)} 
+                          required>
+                            <option></option>
+                            <option value={1}>En attente</option>
+                            <option value={2}>En cours</option>
+                            <option value={3}>Fini</option>
                         </select>
                     </div>
                     <div className="col-md-2 mt-2">
@@ -174,7 +177,7 @@ const formSubmitTask = async (e: FormEvent<HTMLFormElement>) => {
                         <label htmlFor="effectuerAvTache" className="form-label">A éffectuer avant le:</label>
                         <input 
                           type="date" 
-                          name="deadLine" 
+                          name="deadline" 
                           min="2023/05/20" 
                           max="2023/03/24" 
                           className="form-control" 

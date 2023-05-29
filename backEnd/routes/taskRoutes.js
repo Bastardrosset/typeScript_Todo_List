@@ -5,8 +5,8 @@ const auth = require('../middleware/auth.Middleware');
 
 router.post('/create', auth, taskController.createTask);
 router.get('/read', auth, taskController.readAllTasks);
-router.get('/:id', auth, taskController.readTask);
-router.put('/:id', auth, taskController.updateTask);
-router.delete('/:id', auth, taskController.deleteTask);
+router.get('/read/:id', auth, taskController.readTask);
+router.put('/edit/:id', auth, taskController.updateTask);
+router.delete('/delete/:id', auth, taskController.deleteTask);
 
 module.exports = router;

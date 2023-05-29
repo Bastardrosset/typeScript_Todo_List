@@ -17,7 +17,7 @@ export default function Home() {
 
   const readUsers = async () => {
     try{
-      const response = await getAllUsers()
+      const response = await getAllUsers();
       if(response){
         setUsers(response.data)
       }

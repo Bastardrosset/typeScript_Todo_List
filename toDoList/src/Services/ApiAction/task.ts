@@ -25,3 +25,25 @@ export async function readAllTask(){
         console.log(error)
     }
 }
+
+// Call API BACK-END read task ID function
+export async function readTask(id:any){
+    try{
+        const readTaskId = api.get(`api/tasks/read/${id}`)
+        return readTaskId;
+
+    } catch(error){
+        console.log(error)
+    }
+}
+
+// Call API BACK-END read task ID function
+export async function editTask(id:any){
+    try{
+        const editTaskId = api.put(`api/tasks/edit/${id}`)
+        return editTaskId;
+
+    } catch(error){
+        console.log(error)
+    }
+}

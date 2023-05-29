@@ -37,7 +37,7 @@ const TaskSchema = new mongoose.Schema({
         type: Number,
         default: 'En attente'
     },
-    deadline: [Date],
+    deadline: [Date, 'yyyy-MM-dd'],
     startDate: [Date],
     createdAt: {
         type: Date,
