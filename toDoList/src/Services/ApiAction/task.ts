@@ -38,10 +38,10 @@ export async function readTask(id:any){
 }
 
 // Call API BACK-END read task ID function
-export async function editTask(id:any){
+export async function editStatus(id:any, body:any){
     try{
-        const editTaskId = api.put(`api/tasks/edit/${id}`)
-        return editTaskId;
+        const editStatusId = api.put(`api/tasks/edit/${id}`, body)
+        return editStatusId;
 
     } catch(error){
         console.log(error)
