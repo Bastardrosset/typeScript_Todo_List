@@ -1,9 +1,11 @@
+import Navbar from '../Components/Menu/Menu';
+import IconEdite from '../Components/IconEdit/IconEdit';
+
 import {useEffect, useState} from 'react';
 import { readAllTask } from '../Services/ApiAction/task';
 import { NavLink } from 'react-router-dom';
-import Navbar from '../Components/Menu/Menu';
-import IconEdite from '../Components/IconEdit/IconEdit';
 import Table from 'react-bootstrap/Table';
+import { format } from 'date-fns';
 
 
 const ConsultToDoListe =() => {
@@ -25,6 +27,7 @@ const ConsultToDoListe =() => {
         console.log('Une erreur s\'est produite lors de la récupération des taches.', error);
       }
     };
+    
     return (
       <>
       <Navbar />
@@ -43,7 +46,7 @@ const ConsultToDoListe =() => {
           <tbody>
             {tasks.map((task: any) => (
               <tr key={task._id}>
-                <td>{task.updatedAt}</td>
+                <td>{format(new Date(task.updatedAt), 'yyyy-MM-dd')}</td>
                 <td>{task.pseudo}</td>
                 <td>{task.email}</td>
                 <td>{task.name}</td>

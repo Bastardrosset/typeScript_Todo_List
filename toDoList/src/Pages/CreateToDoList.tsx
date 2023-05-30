@@ -35,7 +35,7 @@ const formSubmitTask = async (e: FormEvent<HTMLFormElement>) => {
     }
 
   } catch(error){
-    console.log('erreur create task' + error)
+    console.log('Erreur durant la création de la tache' + error)
   }
 }
 
@@ -142,9 +142,9 @@ const formSubmitTask = async (e: FormEvent<HTMLFormElement>) => {
                           onChange={(e)=>handleChange(e)} 
                           required>
                             <option></option>
-                            <option value={1}>En attente</option>
-                            <option value={2}>En cours</option>
-                            <option value={3}>Fini</option>
+                            <option value="En attente">En attente</option>
+                            <option value="En cours">En cours</option>
+                            <option value="Fini">Fini</option>
                         </select>
                     </div>
                     <div className="col-md-2 mt-2">

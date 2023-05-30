@@ -34,7 +34,8 @@ const TaskSchema = new mongoose.Schema({
         default: 'Moyenne'
     },
     status: {
-        type: Number,
+        type: String,
+        enum: ['En attente', 'En cours', 'Fini'],
         default: 'En attente'
     },
     deadline: [Date, 'yyyy-MM-dd'],

@@ -54,29 +54,26 @@ module.exports.createTask = async (req, res) => {
         return res.status(400).send(error)
     }
 };
-//function modifier une tache
-module.exports.updateTask = (req, res) => {
-    if (!ObjectId.isValid(req.params.id)) { // Methode de verification de l'ID passé en parametres
-        return res.status(400).send('ID inconnu : ' + req.params.id)
-    }
-    const updatedTask = {
-        status: req.body
-    }
 
-    ModelTask.findByIdAndUpdate(
-        req.params.id, {
-            $set: updatedTask
-        }, {
-            new: true
-        },
-        (error, docs) => {
-            if (!error) {
-                res.send(docs);
-            } else {
-                console.log("Mise à jour :" + error);
-            }
+//function modifier une tache
+module.exports.updateTask = async (req, res) => {
+    try {
+        if (!ObjectId.isValid(req.params.id)) {
+            return res.status(400).send('ID inconnu : ' + req.params.id);
         }
-    )
+      
+        const updatedTask = {
+            status: req.body.status
+        };
+
+        const updatedDoc = await ModelTask.findByIdAndUpdate(req.params.id, { $set: updatedTask }, { new: true });
+      
+        res.send(updatedDoc);
+
+    } catch (error) {
+        console.log("Mise à jour : " + error);
+        res.status(500).send("Une erreur s'est produite lors de la mise à jour de la tâche.");
+    }
 };
 //function supprimer la tache
 module.exports.deleteTask = (req, res) => {
