@@ -1,3 +1,20 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
+import { AuthContextType } from "../Interfaces/AuthContext"
+import { AuthProviderProps } from "../Interfaces/AuthProviderProps";
 
-export const UidContext = createContext;
+
+export const AuthContext = createContext<AuthContextType>({
+    loggedInEmail: null,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    setLoggedInEmail: () => {},
+});
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+    const [loggedInEmail, setLoggedInEmail] = useState<string | null>(null);
+  
+    return (
+      <AuthContext.Provider value={{ loggedInEmail, setLoggedInEmail }}>
+        {children}
+      </AuthContext.Provider>
+    );
+  };

@@ -8,22 +8,25 @@ import SignUpForm from './Components/Auth/SignUpForm'
 import CreateToDoList from './Pages/CreateToDoList'
 import ConsultToDoList from './Pages/ConsultToDoList'
 import CardTask from './Components/CardTask/CardTask'
+import { AuthProvider } from './Components/App.context.tsx';
 
-function App() {
+
+const App:React.FC = () => {
 
   return (
     <>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/accueil' element={<Home/>} />
-        <Route path='/' element={<LoginForm/>} />
-        <Route path='/register' element={<SignUpForm/>} />
-        <Route path='/task' element={<CreateToDoList/>} />
-        <Route path='/list' element={<ConsultToDoList/>} />
-        <Route path='/cardTask/:id' element={<CardTask/>} />
-      </Routes>
-    </BrowserRouter>
-    
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/accueil' element={<Home/>} />
+          <Route path='/' element={<LoginForm/>} />
+          <Route path='/register' element={<SignUpForm/>} />
+          <Route path='/task' element={<CreateToDoList/>} />
+          <Route path='/list' element={<ConsultToDoList/>} />
+          <Route path='/cardTask/:id' element={<CardTask/>} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   </> 
   )
 }

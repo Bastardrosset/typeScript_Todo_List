@@ -2,13 +2,17 @@ import './authStyle.css';
 
 import IconTask from '../IconTasks/IconTasks';
 import { NavLink } from 'react-router-dom'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { useContext, ChangeEvent, FormEvent, useState } from 'react'
 import { loginUser } from '../../Services/ApiAction/auth';
 import { useLocalStorage } from '../../hook/useLocalStorage';
+import { AuthContext } from '../App.context'; 
 
 
 export default function LoginForm() {
   
+  const authContext = useContext(AuthContext);
+  const { loggedInEmail } = authContext;
+
   const TOKEN = 'token';
   const [storeToken, setStoreToken] = useLocalStorage(TOKEN, '');
 
@@ -23,12 +27,14 @@ export default function LoginForm() {
     setUser({ ...user, [name]: value})
   }
 
-  const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await loginUser(user);
       if(response) {
         setStoreToken(response.data.token);
+        const { email } = response.data;
+        authContext.setLoggedInEmail(email);
         window.location.href = "/accueil";
       }
     } catch (error) {
@@ -42,7 +48,7 @@ export default function LoginForm() {
         < IconTask />
         </div>
         <div className='login-form col-6 flex-column justify-content-start'>
-          <form className ="form col-12" action="" onSubmit={handleRegister} id="login-form">
+          <form className ="form col-12" action="" onSubmit={handleLogin} id="login-form">
             <div className="d-flex flex-column mt-5">
               <label> Email :</label>
               <input 

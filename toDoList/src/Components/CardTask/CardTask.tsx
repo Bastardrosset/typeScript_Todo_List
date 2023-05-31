@@ -2,29 +2,27 @@ import './cardTaskStyle.css'
 import Navbar from '../Menu/Menu';
 import IconEdite from '../IconEdit/IconEdit';
 
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useContext, ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { editStatus, readTask } from '../../Services/ApiAction/task'
 import { useParams, Params } from 'react-router-dom'
 import { format } from 'date-fns';
+import { TaskType } from '../../Interfaces/Task';
+import { AuthContext } from '../App.context';
 
 export default function CardTask() {
 
+  const authContext = useContext(AuthContext);
+  const { loggedInEmail } = authContext;
   const {id} = useParams<Params>();
-  interface Task {
-    pseudo: string;
-    name: string;
-    description: string;
-    startDate: string;
-    status: string;
-    priority: string;
-    deadline: string;
-  }
+  
   const [isEditing, setIsEditing] = useState(false);
-  const [task, setTask] = useState<Task>();
+  const [task, setTask] = useState<TaskType>();
   const [statusChange, setStatusChange] = useState({
     status: ""
   });
-  
+
+  const isUserEmailMatching = loggedInEmail === task?.email;
+
   useEffect(() => {
     readTaskId()
   }, []);
@@ -53,7 +51,6 @@ export default function CardTask() {
   setStatusChange({ ...statusChange, [name]: value });
   setIsEditing(true);
   }
-// console.log(statusChange)
 
   const handleNewStatus = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -95,6 +92,7 @@ export default function CardTask() {
                     <span className='text-danger fw-bolder me-1'>*</span><span className='fw-bolder'>Status:</span> 
                   <div className="ms-1 d-flex flex-wrap">
                       <p> {task.status}</p>
+                      
                       {isEditing ? (
                         <form className="buttonEdit" onSubmit={(e) => handleNewStatus(e)}>
                           <select
