@@ -93,7 +93,7 @@ export default function CardTask() {
                   <div className="ms-1 d-flex flex-wrap">
                       <p> {task.status}</p>
                       
-                      {isEditing ? (
+                      {isEditing && isUserEmailMatching? (
                         <form className="buttonEdit" onSubmit={(e) => handleNewStatus(e)}>
                           <select
                             className="form-select ms-2"

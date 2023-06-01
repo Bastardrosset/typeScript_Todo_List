@@ -1,4 +1,4 @@
-import './iconEdit.css';
+import './iconEditStyle.css';
 
 import IconEditing from '../../assets/editer.svg';
 

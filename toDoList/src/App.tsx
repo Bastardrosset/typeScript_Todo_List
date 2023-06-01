@@ -15,18 +15,21 @@ const App:React.FC = () => {
 
   return (
     <>
-    <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path='/accueil' element={<Home/>} />
           <Route path='/' element={<LoginForm/>} />
           <Route path='/register' element={<SignUpForm/>} />
+        </Routes>
+
+    <AuthProvider>
+        <Routes>
+          <Route path='/accueil' element={<Home/>} />
           <Route path='/task' element={<CreateToDoList/>} />
           <Route path='/list' element={<ConsultToDoList/>} />
           <Route path='/cardTask/:id' element={<CardTask/>} />
         </Routes>
-      </BrowserRouter>
     </AuthProvider>
+      </BrowserRouter>
   </> 
   )
 }

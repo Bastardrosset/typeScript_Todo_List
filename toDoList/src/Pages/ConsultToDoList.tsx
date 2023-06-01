@@ -1,5 +1,5 @@
 import Navbar from '../Components/Menu/Menu';
-import IconEdite from '../Components/IconEdit/IconEdit';
+import IconEdit from '../Components/IconEdit/IconEdit';
 
 import {useEffect, useState} from 'react';
 import { readAllTask } from '../Services/ApiAction/task';
@@ -54,9 +54,8 @@ const ConsultToDoListe =() => {
                 <td><NavLink className="nav-link col-12" 
                   aria-current="page" 
                   to={`/cardTask/${task._id}`}
-                  ><IconEdite/></NavLink></td> 
+                  ><IconEdit/></NavLink></td> 
               </tr>
-
             ))}
           </tbody>
         </Table>

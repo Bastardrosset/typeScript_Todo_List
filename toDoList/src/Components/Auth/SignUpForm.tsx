@@ -72,8 +72,8 @@ const SignupForm = () => {
                 required/>
             </div>
             <input className="btn btn-primary mt-3" type="submit" value="Valider inscription" />
-          </form>
           <NavLink className="nav-link col-12 text-center mt-5 myStyleLink" to="/">Déja un compte ?</NavLink>
+          </form>
         </div>
     </div>
   )
