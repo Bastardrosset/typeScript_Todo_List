@@ -18,12 +18,21 @@ export default function Home() {
   const readUsers = async () => {
     try{
       const response = await getAllUsers();
-      if(response){
-        setUsers(response.data)
+        if(response){
+          const sortedUsers = response.data.sort((a: { isAdmin: string, name: string }, b: { isAdmin: string, name: string })=>{
+            // Sort role (Admin first)
+          if (a.isAdmin === 'Admin' && b.isAdmin !== 'Admin') {
+            return -1; 
+          } else if (a.isAdmin !== 'Admin' && b.isAdmin === 'Admin') {
+            return 1; 
+          } else {
+            return a.name.localeCompare(b.name); // sort alphabetically name
+          }
+        })
+        setUsers(sortedUsers)
       }
     } catch(error) {
     console.log('erreur durant le chargement des users' + error)
-
     }
   }
 

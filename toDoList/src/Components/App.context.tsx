@@ -12,6 +12,7 @@ export const AuthContext = createContext<AuthContextType>({
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [loggedInEmail, setLoggedInEmail] = useState<string | null>(null);
   
+    // console.log(loggedInEmail)
     return (
       <AuthContext.Provider value={{ loggedInEmail, setLoggedInEmail }}>
         {children}

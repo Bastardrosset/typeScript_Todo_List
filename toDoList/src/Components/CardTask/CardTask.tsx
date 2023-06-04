@@ -9,6 +9,7 @@ import { format } from 'date-fns';
 import { TaskType } from '../../Interfaces/Task';
 import { AuthContext } from '../App.context';
 
+
 export default function CardTask() {
 
   const authContext = useContext(AuthContext);
@@ -93,7 +94,7 @@ export default function CardTask() {
                   <div className="ms-1 d-flex flex-wrap">
                       <p> {task.status}</p>
                       
-                      {isEditing && isUserEmailMatching? (
+                      {isEditing ? (
                         <form className="buttonEdit" onSubmit={(e) => handleNewStatus(e)}>
                           <select
                             className="form-select ms-2"
