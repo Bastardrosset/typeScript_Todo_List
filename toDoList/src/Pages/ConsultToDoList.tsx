@@ -1,10 +1,11 @@
 import Navbar from '../Components/Menu/Menu';
 import IconEdit from '../Components/IconEdit/IconEdit';
+import IconFinish from '../Components/IconFinish/IconFinish';
+import Table from 'react-bootstrap/Table';
 
 import {ChangeEvent, useEffect, useState} from 'react';
 import { readAllTask } from '../Services/ApiAction/task';
 import { NavLink } from 'react-router-dom';
-import Table from 'react-bootstrap/Table';
 import { format } from 'date-fns';
 
 
@@ -63,11 +64,9 @@ const ConsultToDoListe =() => {
     return (
       <>
       <Navbar />
-      <div>SELECT PRIORITY
+      <div className='form-select_priority ms-3'>
+        <h5>Triez par prioritées </h5>
         <div className="col-md-2">
-          <label 
-            htmlFor="prioriteTache" 
-            className="form-label">Prioritée</label>
           <select 
             className="form-select" 
             name='priority'
@@ -106,6 +105,9 @@ const ConsultToDoListe =() => {
                   aria-current="page" 
                   to={`/cardTask/${task._id}`}
                   ><IconEdit/></NavLink></td> 
+                
+                {task.status === 'Fini' && <span><IconFinish/></span>}
+              
               </tr>
             ))}
           </tbody>

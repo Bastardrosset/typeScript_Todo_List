@@ -35,7 +35,6 @@ export default function CardTask() {
         if(response){
           setTask(response.data)
         }
-
       }
     } catch(error){
       console.log('erreur durant le chargement des taches' + error)
