@@ -2,18 +2,15 @@ import './cardTaskStyle.css'
 import Navbar from '../Menu/Menu';
 import IconEdite from '../IconEdit/IconEdit';
 
-import { useContext, ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { editStatus, readTask } from '../../Services/ApiAction/task'
 import { useParams, Params } from 'react-router-dom'
 import { format } from 'date-fns';
 import { TaskType } from '../../Interfaces/Task';
-import { AuthContext } from '../App.context';
 
 
 export default function CardTask() {
 
-  const authContext = useContext(AuthContext);
-  const { loggedInEmail } = authContext;
   const {id} = useParams<Params>();
   
   const [isEditing, setIsEditing] = useState(false);
@@ -21,8 +18,6 @@ export default function CardTask() {
   const [statusChange, setStatusChange] = useState({
     status: ""
   });
-
-  const isUserEmailMatching = loggedInEmail === task?.email;
 
   useEffect(() => {
     readTaskId()

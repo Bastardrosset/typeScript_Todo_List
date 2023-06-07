@@ -7,7 +7,9 @@ import Button from '../Components/Button/Button';
 import Logout from '../Components/Auth/Logout';
 
 
-export default function Home() {
+export default function Home(props: any) {
+
+  // const {getAllUsers} = props;
 
   const [users, setUsers] = useState([]);
 
@@ -18,6 +20,7 @@ export default function Home() {
   const readUsers = async () => {
     try{
       const response = await getAllUsers();
+
         if(response){
           const sortedUsers = response.data.sort((a: { isAdmin: string, name: string }, b: { isAdmin: string, name: string })=>{
             // Sort role (Admin first)
@@ -29,6 +32,7 @@ export default function Home() {
             return a.name.localeCompare(b.name); // sort alphabetically name
           }
         })
+        
         setUsers(sortedUsers)
       }
     } catch(error) {

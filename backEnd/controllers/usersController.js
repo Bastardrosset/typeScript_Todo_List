@@ -21,7 +21,7 @@ exports.getAllUsers = async (req, res) => {
 
 // Function infos utilisateur
 exports.userInfo = async (req, res) => {
-    // console.log(req.params);
+
     if (!ObjectId.isValid(req.params.id)) { // Methode de verification de l'ID passé en parametres
         return res.status(400).send('ID inconnu : ' + req.params.id)
     }

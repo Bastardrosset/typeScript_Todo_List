@@ -9,10 +9,26 @@ import ConsultToDoList from './Pages/ConsultToDoList'
 import CardTask from './Components/CardTask/CardTask'
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { AuthProvider } from './Components/App.context.tsx';
+import { isAdmin } from './Services/ApiAction/admin'
+import { useEffect } from 'react'
 
 
 const App:React.FC = () => {
+
+  useEffect(() => {
+    ifIsAdmin();
+  }, [])
+
+  const ifIsAdmin = async () => {
+    try{
+      const response = await isAdmin();
+      // return response
+      console.log(response)
+
+    } catch(error) {
+      console.log(error)
+    }
+  }
 
   return (
     <>
@@ -20,16 +36,11 @@ const App:React.FC = () => {
         <Routes>
           <Route path='/' element={<LoginForm/>} />
           <Route path='/register' element={<SignUpForm/>} />
-        </Routes>
-
-        <AuthProvider>
-          <Routes>
-            <Route path='/accueil' element={<Home/>} />
-            <Route path='/task' element={<CreateToDoList/>} />
-            <Route path='/list' element={<ConsultToDoList/>} />
-            <Route path='/cardTask/:id' element={<CardTask/>} />
-          </Routes>
-        </AuthProvider>
+          <Route path='/accueil' element={<Home/>} />
+          <Route path='/task' element={<CreateToDoList/>} />
+          <Route path='/list' element={<ConsultToDoList/>} />
+          <Route path='/cardTask/:id' element={<CardTask/>} />
+        </Routes>      
       </BrowserRouter>
     </> 
   )

@@ -2,16 +2,12 @@ import './authStyle.css';
 
 import IconTask from '../IconTasks/IconTasks';
 import { NavLink } from 'react-router-dom'
-import { useContext, ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { loginUser } from '../../Services/ApiAction/auth';
 import { useLocalStorage } from '../../hook/useLocalStorage';
-import { AuthContext } from '../App.context'; 
 
 
 export default function LoginForm() {
-  
-  const authContext = useContext(AuthContext);
-  const { loggedInEmail } = authContext;
 
   const TOKEN = 'token';
   const [storeToken, setStoreToken] = useLocalStorage(TOKEN, '');
@@ -33,8 +29,6 @@ export default function LoginForm() {
       const response = await loginUser(user);
       if(response) {
         setStoreToken(response.data.token);
-        const { email } = response.data;
-        authContext.setLoggedInEmail(email);
         window.location.href = "/accueil";
       }
     } catch (error) {
