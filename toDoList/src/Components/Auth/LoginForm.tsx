@@ -30,7 +30,6 @@ export default function LoginForm() {
     e.preventDefault();
     try {
       const response = await loginUser(user);
-      
       if(response) {
         setStoreToken(response.data.token);
         setStoreUser(response.data.user.isAdmin);

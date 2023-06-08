@@ -7,12 +7,15 @@ import {ChangeEvent, useEffect, useState} from 'react';
 import { readAllTask } from '../Services/ApiAction/task';
 import { NavLink } from 'react-router-dom';
 import { format } from 'date-fns';
-
+import { useLocalStorage } from '../hook/useLocalStorage';
+import IconDelete from '../Components/IconDelete/IconDelete'
 
 const ConsultToDoListe =() => {
 
     const [tasks, setTasks] = useState([]);
     const [selectedPriority, setSelectedPriority] = useState('');
+    const [storeUser] = useLocalStorage('user', '');
+console.log(storeUser)
 
     useEffect(() => {
       sortTasks();
@@ -101,7 +104,7 @@ const ConsultToDoListe =() => {
                   to={`/cardTask/${task._id}`}
                   ><IconEdit/></NavLink></td> 
                 
-                {task.status === 'Fini' && <span><IconFinish/></span>}
+                {task.status === 'Fini' && storeUser === "Admin" && <span><IconDelete/></span>}
               
               </tr>
             ))}
