@@ -10,14 +10,17 @@ import { useLocalStorage } from '../../hook/useLocalStorage';
 export default function LoginForm() {
 
   const TOKEN = 'token';
+  const USER = 'user'
   const [storeToken, setStoreToken] = useLocalStorage(TOKEN, '');
+  const [storeUser, setStoreUser] = useLocalStorage(USER, '');
 
   
   const [user, setUser] = useState({
     email: "",
     password: "",
   })
-  
+  // console.log('user as', user)
+
   function handleChange(e:ChangeEvent<HTMLInputElement>){
     const {name, value} = e.target;
     setUser({ ...user, [name]: value})
@@ -27,8 +30,10 @@ export default function LoginForm() {
     e.preventDefault();
     try {
       const response = await loginUser(user);
+      
       if(response) {
         setStoreToken(response.data.token);
+        setStoreUser(response.data.user.isAdmin);
         window.location.href = "/accueil";
       }
     } catch (error) {

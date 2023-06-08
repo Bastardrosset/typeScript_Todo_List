@@ -9,26 +9,8 @@ import ConsultToDoList from './Pages/ConsultToDoList'
 import CardTask from './Components/CardTask/CardTask'
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { isAdmin } from './Services/ApiAction/admin'
-import { useEffect } from 'react'
-
 
 const App:React.FC = () => {
-
-  useEffect(() => {
-    ifIsAdmin();
-  }, [])
-
-  const ifIsAdmin = async () => {
-    try{
-      const response = await isAdmin();
-      // return response
-      console.log(response)
-
-    } catch(error) {
-      console.log(error)
-    }
-  }
 
   return (
     <>

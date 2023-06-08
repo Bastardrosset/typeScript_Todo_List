@@ -6,7 +6,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { editStatus, readTask } from '../../Services/ApiAction/task'
 import { useParams, Params } from 'react-router-dom'
 import { format } from 'date-fns';
-import { TaskType } from '../../Interfaces/Task';
+import { TaskType } from '../../Interfaces/TaskIterface';
 
 
 export default function CardTask() {

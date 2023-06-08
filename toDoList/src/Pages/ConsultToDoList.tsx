@@ -26,10 +26,7 @@ const ConsultToDoListe =() => {
       try {
         const response = await readAllTask()
         if(response){
-          // console.log(response)
-
           setTasks(response.data)
-          // console.log(response.data[0].email)
         }
       } catch (error) {
         console.log('Une erreur s\'est produite lors de la récupération des taches.', error);
@@ -40,7 +37,6 @@ const ConsultToDoListe =() => {
       try {
         const response = await readAllTask()
         if(response){
-          // console.log(response)
           let sortedTasks = response.data;
 
         if (selectedPriority) {
@@ -50,7 +46,6 @@ const ConsultToDoListe =() => {
         sortedTasks.sort((a: { priority: string }, b: { priority: any }) => a.priority.localeCompare(b.priority));
 
           setTasks(sortedTasks)
-          // console.log(response.data[0].email)
         }
       } catch (error) {
         console.log('Une erreur s\'est produite lors de la récupération des taches.', error);
