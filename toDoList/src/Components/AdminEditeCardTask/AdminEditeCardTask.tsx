@@ -7,6 +7,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { readTask, adminEdit } from '../../Services/ApiAction/task';
 import { Params, useParams } from 'react-router-dom'
 import { TaskType } from '../../Interfaces/TaskIterface'
+import { format } from 'date-fns'
 
 
 export default function AdminEditeCardTask() {
@@ -53,9 +54,16 @@ export default function AdminEditeCardTask() {
         try {
             const response = await readTask(id)
             if (response) {
-                console.log(response)
-                setTask(response.data)
-                setEditeTask(response.data)
+                const responseData = response.data
+                const formattedStartDate = format(new Date(responseData.startDate), 'yyyy-MM-dd')
+                const formattedDeadline = format(new Date(responseData.deadline), 'yyyy-MM-dd')
+                const updatedTask = {
+                    ...responseData,
+                    startDate: formattedStartDate,
+                    deadline: formattedDeadline
+                }
+                setTask(updatedTask)
+                setEditeTask(updatedTask)
             }
         } catch (error) {
             console.log('erreur durant le chargement des taches' + error)
@@ -64,6 +72,7 @@ export default function AdminEditeCardTask() {
 
     const formSubmitEdite = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        console.log('clické')
         // Function to handle form submission and update task
     };
     
