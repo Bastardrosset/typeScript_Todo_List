@@ -9,6 +9,7 @@ import ConsultToDoList from './Pages/ConsultToDoList'
 import CardTask from './Components/CardTask/CardTask'
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import AdminEditeCardTask from './Components/AdminEditeCardTask/AdminEditeCardTask'
 
 const App:React.FC = () => {
 
@@ -22,6 +23,7 @@ const App:React.FC = () => {
           <Route path='/task' element={<CreateToDoList/>} />
           <Route path='/list' element={<ConsultToDoList/>} />
           <Route path='/cardTask/:id' element={<CardTask/>} />
+          <Route path='/editTask/:id' element={<AdminEditeCardTask/>} />
         </Routes>      
       </BrowserRouter>
     </> 

@@ -19,7 +19,6 @@ export default function CreateToDoList() {
     deadline: "",
     update: ""
   });
-// console.log(task)
 
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>){
     const {name, value} = e.target;

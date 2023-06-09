@@ -12,11 +12,10 @@ import { useLocalStorage } from '../../hook/useLocalStorage';
 
 export default function CardTask() {
 
-  const {id} = useParams<Params>();
+  const { id } = useParams<Params>();
   const [storeUser] = useLocalStorage('user', '')
-// console.log(storeUser)
   const [isEditing, setIsEditing] = useState(false);
-  const [task, setTask] = useState<TaskType>();
+  const [task, setTask] = useState<TaskType | undefined>();
   const [statusChange, setStatusChange] = useState({
     status: " "
   });
@@ -64,7 +63,9 @@ export default function CardTask() {
   }
 
   function adminEditeTask() {
-    window.location.href = "/task";
+    if (task) {
+      window.location.href = `/editTask/${task._id}`;
+    }
   }
 
   return (
@@ -99,7 +100,7 @@ export default function CardTask() {
                     <span className='text-danger fw-bolder me-1'>*</span><span className='fw-bolder'>Status:</span> 
                   <div className="ms-1 d-flex flex-wrap">
                       <p>{task.status}</p>
-                      {isEditing ? (
+                    {isEditing ? (
                         <form className="buttonEdit" onSubmit={(e) => handleNewStatus(e)}>
                           <select
                             className="form-select ms-2"
@@ -114,11 +115,9 @@ export default function CardTask() {
                           <button className="btn btn-primary col-8 mt-2 mb-3" type="submit">Modifier</button>
                         </form>
                       ) : (
-                      localStorage.getItem('User') ? (
                         <button className="border-0" type="button" onClick={() => setIsEditing(true)}>
                           <IconEdite />
                         </button>
-                      ) : null
                     )}
                     </div>
                   </div> 
