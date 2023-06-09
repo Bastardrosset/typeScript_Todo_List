@@ -76,17 +76,20 @@ module.exports.updateTask = async (req, res) => {
     }
 };
 //function supprimer la tache
-module.exports.deleteTask = (req, res) => {
-    if (!ObjectId.isValid(req.params.id)) { // Methode de verification de l'ID passé en parametres
-        return res.status(400).send('ID inconnu : ' + req.params.id)
+module.exports.deleteTask = async (req, res) => {
+  if (!ObjectId.isValid(req.params.id)) { 
+    return res.status(400).send('ID inconnu : ' + req.params.id);
+  }
+
+  try {
+    const result = await ModelTask.findByIdAndRemove(req.params.id);
+    if (result) {
+      res.status(200).send('Tâche supprimée');
+    } else {
+      res.status(404).send('Tâche introuvable');
     }
-    ModelTask.findByIdAndRemove(
-        req.params.id,
-        (error, docs) => {
-            if (!error) {
-                res.status(200).send('task');
-            } else {
-                console.log("Suppression :" + error)
-            }
-        })
+  } catch (error) {
+    console.log('Suppression :', error);
+    res.status(500).send('Erreur lors de la suppression de la tâche');
+  }
 };

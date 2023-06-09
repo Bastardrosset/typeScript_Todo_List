@@ -1,7 +1,8 @@
 .iconDeleting{
     width: 20px;
     height: auto;
-}
-.iconDeleting{
     cursor: pointer;
+}
+.iconDelete{
+    border: none!important;
 }
