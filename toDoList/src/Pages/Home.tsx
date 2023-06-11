@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getAllUsers } from '../Services/ApiAction/user';
+import { getAllUsers } from '../Services/ApiAction/User';
 
 import IconTask from '../Components/IconTasks/IconTasks';
 import Button from '../Components/Button/Button';

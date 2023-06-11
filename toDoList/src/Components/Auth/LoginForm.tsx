@@ -3,7 +3,7 @@ import './authStyle.css'
 import IconTask from '../IconTasks/IconTasks'
 import { NavLink } from 'react-router-dom'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { loginUser } from '../../Services/ApiAction/auth'
+import { loginUser } from '../../Services/ApiAction/Auth'
 import { useLocalStorage } from '../../hook/useLocalStorage'
 
 

@@ -6,7 +6,7 @@ import Table from 'react-bootstrap/Table'
 import IconDelete from '../Components/IconDelete/IconDelete'
 
 import { ChangeEvent, useEffect, useState } from 'react'
-import { readAllTask } from '../Services/ApiAction/task'
+import { readAllTask } from '../Services/ApiAction/Task'
 import { NavLink } from 'react-router-dom'
 import { format } from 'date-fns'
 import { useLocalStorage } from '../hook/useLocalStorage'

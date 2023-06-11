@@ -4,15 +4,15 @@ import Navbar from '../Menu/Menu'
 
 import { useLocalStorage } from '../../hook/useLocalStorage'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import { readTask } from '../../Services/ApiAction/task'
+import { readTask } from '../../Services/ApiAction/Task'
 import { Params, useParams } from 'react-router-dom'
-import { TaskType } from '../../Interfaces/TaskIterface'
+import { TaskType } from '../../Interfaces/TaskInterface'
 import { format } from 'date-fns'
 import { adminEdit } from '../../Services/ApiAction/Admin'
 
 
 export default function AdminEditeCardTask() {
-    
+
     const { id } = useParams<Params>()
 
     const [storeUser] = useLocalStorage('user', '')

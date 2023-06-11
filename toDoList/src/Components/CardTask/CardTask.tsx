@@ -4,10 +4,10 @@ import Navbar from '../Menu/Menu'
 import IconEdite from '../IconEdit/IconEdit'
 
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import { editStatus, readTask } from '../../Services/ApiAction/task'
+import { editStatus, readTask } from '../../Services/ApiAction/Task'
 import { useParams, Params } from 'react-router-dom'
 import { format } from 'date-fns'
-import { TaskType } from '../../Interfaces/TaskIterface'
+import { TaskType } from '../../Interfaces/TaskInterface'
 import { useLocalStorage } from '../../hook/useLocalStorage'
 
 export default function CardTask() {

@@ -4,7 +4,7 @@ import IconTask from '../IconTasks/IconTasks'
 
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { registerUser } from '../../Services/ApiAction/auth'
+import { registerUser } from '../../Services/ApiAction/Auth'
 
 const SignupForm = () => {
 
