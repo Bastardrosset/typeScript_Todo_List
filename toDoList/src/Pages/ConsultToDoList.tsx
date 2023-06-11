@@ -10,7 +10,7 @@ import { readAllTask } from '../Services/ApiAction/task'
 import { NavLink } from 'react-router-dom'
 import { format } from 'date-fns'
 import { useLocalStorage } from '../hook/useLocalStorage'
-import { adminRemoveTask } from '../Services/ApiAction/task'
+import { adminRemoveTask } from '../Services/ApiAction/Admin'
 
 
 const ConsultToDoListe = () => {
@@ -18,7 +18,6 @@ const ConsultToDoListe = () => {
   const [tasks, setTasks] = useState([])
   const [selectedPriority, setSelectedPriority] = useState('')
   const [storeUser] = useLocalStorage('user', '')
-  console.log(storeUser)
   const [removedTasks, setRemovedTasks] = useState<any[]>([])
 
   useEffect(() => {
@@ -29,6 +28,7 @@ const ConsultToDoListe = () => {
     fetchTasks()
   }, [])
 
+  // Return all saved tasks
   const fetchTasks = async () => {
     try {
       const response = await readAllTask()
@@ -40,6 +40,7 @@ const ConsultToDoListe = () => {
     }
   }
 
+  // function returns all tasks in order of priority
   const sortTasks = async () => {
     try {
       const response = await readAllTask()
@@ -59,10 +60,12 @@ const ConsultToDoListe = () => {
     }
   }
 
+  // Select new task status
   const sortPriorityTaskChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedPriority(e.target.value)
   }
 
+  // Remove task function
   async function removeTask(taskId: any) {
     const confirmDelete = window.confirm('Êtes-vous sûr de vouloir supprimer cette tâche definitivement ?')
     if (confirmDelete) {

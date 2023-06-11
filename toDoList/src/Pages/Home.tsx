@@ -9,18 +9,16 @@ import Logout from '../Components/Auth/Logout';
 
 export default function Home(props: any) {
 
-  // const {getAllUsers} = props;
-
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     readUsers();
   }, []);
 
+  // Function returns all users
   const readUsers = async () => {
     try{
       const response = await getAllUsers();
-        // console.log(response)
 
         if(response){
           const sortedUsers = response.data.sort((a: { isAdmin: string, name: string }, b: { isAdmin: string, name: string })=>{
