@@ -55,8 +55,8 @@ module.exports.createTask = async (req, res) => {
     }
 };
 
-//function modifier une tache
-module.exports.updateTask = async (req, res) => {
+//function modifier le status d'une tache
+module.exports.updateStatusTask = async (req, res) => {
     try {
         if (!ObjectId.isValid(req.params.id)) {
             return res.status(400).send('ID inconnu : ' + req.params.id);
@@ -68,6 +68,34 @@ module.exports.updateTask = async (req, res) => {
 
         const updatedDoc = await ModelTask.findByIdAndUpdate(req.params.id, { $set: updatedTask }, { new: true });
       
+        res.send(updatedDoc);
+
+    } catch (error) {
+        console.log("Mise à jour : " + error);
+        res.status(500).send("Une erreur s'est produite lors de la mise à jour de la tâche.");
+    }
+};
+
+//function modifier une tache
+module.exports.editAdminTask = async (req, res) => {
+    if (!ObjectId.isValid(req.params.id)) {
+        return res.status(400).send('ID inconnu : ' + req.params.id);
+    }
+    try {
+        const existingTask = await ModelTask.findById(req.params.id);
+
+        if (!existingTask) {
+        return res.status(404).send('Tâche non trouvée');
+        }
+
+    const updatedTask = {
+      ...existingTask._doc,
+      ...req.body,
+    };
+        const updatedDoc = await ModelTask.findByIdAndUpdate(
+            req.params.id,
+            { $set: updatedTask },
+            { new: true });
         res.send(updatedDoc);
 
     } catch (error) {

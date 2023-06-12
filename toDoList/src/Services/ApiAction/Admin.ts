@@ -17,8 +17,8 @@ export async function adminRemoveTask(id: any) {
 // Call API BACK-END read task ID function
 export async function adminEdit(id: any, body: any) {
     try {
-        const adminEditTaskId = api.put(`api/tasks/edit/${id}`, body)
-        return adminEditTaskId
+        const adminEditTaskId = await api.put(`api/tasks/editAdmin/${id}`, body)
+        return adminEditTaskId.data
 
     } catch (error) {
         console.log(error)

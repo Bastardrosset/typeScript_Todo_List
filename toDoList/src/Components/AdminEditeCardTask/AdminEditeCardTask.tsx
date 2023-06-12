@@ -4,10 +4,8 @@ import Navbar from '../Menu/Menu'
 
 import { useLocalStorage } from '../../hook/useLocalStorage'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
-import { readTask } from '../../Services/ApiAction/Task'
 import { Params, useParams } from 'react-router-dom'
 import { TaskType } from '../../Interfaces/TaskInterface'
-import { format } from 'date-fns'
 import { adminEdit } from '../../Services/ApiAction/Admin'
 
 
@@ -16,18 +14,7 @@ export default function AdminEditeCardTask() {
     const { id } = useParams<Params>()
 
     const [storeUser] = useLocalStorage('user', '')
-    const [task, setTask] = useState<TaskType>({
-        pseudo: '',
-        email: '',
-        name: '',
-        category: '',
-        description: '',
-        priority: '',
-        status: '',
-        startDate: '',
-        deadline: '',
-        update: '',
-    })
+
     const [editeTask, setEditeTask] = useState<TaskType>({
         pseudo: '',
         email: '',
@@ -40,46 +27,21 @@ export default function AdminEditeCardTask() {
         deadline: '',
         update: '',
     })
-
+    
     // set input changes
     function handleChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
         const { name, value } = e.target
-        setTask({ ...task, [name]: value })
         setEditeTask((prevEditeTask) => ({ ...prevEditeTask, [name]: value }))
     }
 
-    useEffect(() => {
-        fetchTaskDetails()
-    }, [])
-
-    // function returns the properties of the task
-    const fetchTaskDetails = async () => {
-        try {
-            const response = await readTask(id)
-            if (response) {
-                const responseData = response.data
-                const formattedStartDate = format(new Date(responseData.startDate), 'yyyy-MM-dd')
-                const formattedDeadline = format(new Date(responseData.deadline), 'yyyy-MM-dd')
-                const updatedTask = {
-                    ...responseData,
-                    startDate: formattedStartDate,
-                    deadline: formattedDeadline
-                }
-                setTask(updatedTask)
-                setEditeTask(updatedTask)
-            }
-        } catch (error) {
-            console.log('erreur durant le chargement des taches' + error)
-        }
-    }
 
     // form submit edit from admin
     const formSubmitEdite = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            const response = await adminEdit(id, task)
+            const response = await adminEdit(id, editeTask)
             if (response) {
-                setTask(task)
+                setEditeTask(editeTask)
                 window.location.href = "/list"
             }
         } catch (error) {
@@ -198,7 +160,6 @@ export default function AdminEditeCardTask() {
                                     id="statutTache"
                                     onChange={(e) => handleChange(e)}
                                     required>
-                                    <option></option>
                                     <option value="En attente">En attente</option>
                                     <option value="En cours">En cours</option>
                                     <option value="Fini">Fini</option>
@@ -253,11 +214,6 @@ export default function AdminEditeCardTask() {
                 </form>
             }
         </>
-        // verification admin
-
-        // formulaire pré remplis
-
-        // envoie data vers BDD
 
     )
 }
