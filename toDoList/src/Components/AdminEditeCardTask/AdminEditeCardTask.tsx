@@ -7,6 +7,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { Params, useParams } from 'react-router-dom'
 import { TaskType } from '../../Interfaces/TaskInterface'
 import { adminEdit } from '../../Services/ApiAction/Admin'
+import { readTask } from '../../Services/ApiAction/Task'
 
 
 export default function AdminEditeCardTask() {
@@ -28,6 +29,18 @@ export default function AdminEditeCardTask() {
         update: '',
     })
     
+    useEffect(() => {
+        fetchTaskDetails()
+    }, []) 
+
+    const fetchTaskDetails = async () => {
+        try {
+            const response = await readTask(id)
+            setEditeTask(response?.data || {})
+        } catch (error) {
+            console.log(error)
+        }
+    }
     // set input changes
     function handleChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
         const { name, value } = e.target
