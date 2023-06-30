@@ -12,15 +12,15 @@ export function useApi() {
     })
 
     api.interceptors.request.use((config) => {
-        // Ajoutez ici toute logique supplémentaire pour modifier la requête
+        // Logique supplémentaire pour modifier la requête
         return config;
       });
     
       api.interceptors.response.use((response) => {
-        // Ajoutez ici toute logique supplémentaire pour traiter la réponse
+        // Logique supplémentaire pour traiter la réponse
         return response;
       }, (error) => {
-        // Ajoutez ici toute logique supplémentaire pour traiter les erreurs
+        // Logique supplémentaire pour traiter les erreurs
         return Promise.reject(error);
       });
     
